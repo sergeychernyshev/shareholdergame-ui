@@ -1,9 +1,9 @@
 import React from "react";
 
-import Color from "color";
-
 import { FormattedMessage, injectIntl, intlShape } from "react-intl";
 import Button from "react-bootstrap/lib/Button";
+
+import { getPriceChangeCells } from "./GameTurnHelper";
 
 import {
   CurrentTurnPropTypes,
@@ -130,26 +130,7 @@ const CurrentTurn = ({
   );
 
   tableCells = tableCells.concat(
-    allColors.map((color, index) => (
-      <ShareCell
-        key={`price_${intl.formatMessage(color.letter)}`}
-        color={color}
-        current
-      >
-        <span
-          style={{
-            color:
-              newPrices[index] !== previousPrices[index]
-                ? "black"
-                : Color(allColors[index].style)
-                    .darken(0.5)
-                    .alpha(0.2)
-          }}
-        >
-          {newPrices[index]}
-        </span>
-      </ShareCell>
-    ))
+    getPriceChangeCells(previousPrices, newPrices)
   );
 
   if (lastRow) {

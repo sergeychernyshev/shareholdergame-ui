@@ -5,6 +5,24 @@ import { allColors } from "../Cards/CardColor";
 
 import ShareCell from "./ShareCell";
 
+export const getPriceChangeCells = (previousPrices, newPrices) =>
+  allColors.map((color, index) => (
+    <ShareCell key={`price_${color.letter.id}`} color={color} current>
+      <span
+        style={{
+          color:
+            newPrices[index] !== previousPrices[index]
+              ? "black"
+              : Color(allColors[index].style)
+                  .darken(0.5)
+                  .alpha(0.2)
+        }}
+      >
+        {newPrices[index]}
+      </span>
+    </ShareCell>
+  ));
+
 export const getBankAmounts = turn =>
   turn.bankAmounts.map(
     (amount, amountIndex) =>

@@ -1,12 +1,12 @@
 import React from "react";
 
-import Color from "color";
-
 import { FormattedMessage, injectIntl, intlShape } from "react-intl";
 import Button from "react-bootstrap/lib/Button";
 
 import { allColors } from "../Cards/CardColor";
 import ShareCell from "./ShareCell";
+
+import { getPriceChangeCells } from "./GameTurnHelper";
 
 import {
   CurrentTurnPropTypes,
@@ -130,26 +130,7 @@ const CurrentTurnCompact = ({
     </ShareCell>
   ));
 
-  const priceCells = allColors.map((color, index) => (
-    <ShareCell
-      key={`price_${intl.formatMessage(color.letter)}`}
-      color={color}
-      current
-    >
-      <span
-        style={{
-          color:
-            newPrices[index] !== previousPrices[index]
-              ? "black"
-              : Color(allColors[index].style)
-                  .darken(0.5)
-                  .alpha(0.2)
-        }}
-      >
-        {newPrices[index]}
-      </span>
-    </ShareCell>
-  ));
+  const priceCells = getPriceChangeCells(previousPrices, newPrices);
 
   const lastStepCells = allColors.map((color, index) => (
     <ShareCell
