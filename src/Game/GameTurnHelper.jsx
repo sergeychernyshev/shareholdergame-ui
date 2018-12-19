@@ -1,27 +1,122 @@
 import React from "react";
 import Color from "color";
 
+import Button from "react-bootstrap/lib/Button";
+import Glyphicon from "react-bootstrap/lib/Glyphicon";
+// import FormGroup from "react-bootstrap/lib/FormGroup";
+// import InputGroup from "react-bootstrap/lib/InputGroup";
+import FormControl from "react-bootstrap/lib/FormControl";
+
 import { allColors } from "../Cards/CardColor";
 
 import ShareCell from "./ShareCell";
 
-export const getPriceChangeCells = (previousPrices, newPrices) =>
-  allColors.map((color, index) => (
+export const getPriceChangeCells = (
+  previousPrices,
+  newPrices,
+  selectedCard
+) => {
+  const selectedColor = selectedCard ? selectedCard.card.color : null;
+
+  let primaryIndex = null;
+  let primaryUp = false;
+  let primaryDown = false;
+
+  let oppositeUp = false;
+  let oppositeDown = false;
+
+  allColors.forEach((color, index) => {
+    if (selectedColor === color) {
+      primaryIndex = index;
+      primaryUp = newPrices[index] > previousPrices[index];
+      primaryDown = newPrices[index] < previousPrices[index];
+
+      oppositeUp = primaryDown;
+      oppositeDown = primaryUp;
+    }
+  });
+
+  return allColors.map((color, index) => (
     <ShareCell key={`price_${color.letter.id}`} color={color} current>
-      <span
+      {
+        <Button
+          bsStyle={
+            (index === primaryIndex && primaryUp) ||
+            (index !== primaryIndex && oppositeUp)
+              ? "success"
+              : "default"
+          }
+          bsSize="xs"
+          disabled={!selectedCard || index === primaryIndex || oppositeDown}
+          block
+          style={{
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 0
+          }}
+        >
+          <Glyphicon
+            glyph="arrow-up"
+            style={
+              !selectedCard ||
+              (index === primaryIndex && primaryDown) ||
+              (index !== primaryIndex && oppositeDown)
+                ? {
+                    color: "silver"
+                  }
+                : {}
+            }
+          />
+        </Button>
+      }
+      <FormControl
+        type="text"
+        value={
+          newPrices[index] !== previousPrices[index] ? newPrices[index] : ""
+        }
+        placeholder={
+          newPrices[index] === previousPrices[index] ? newPrices[index] : ""
+        }
+        disabled
         style={{
-          color:
-            newPrices[index] !== previousPrices[index]
-              ? "black"
-              : Color(allColors[index].style)
-                  .darken(0.5)
-                  .alpha(0.2)
+          textAlign: "center",
+          borderTop: 0,
+          borderBottom: 0,
+          borderRadius: 0
         }}
-      >
-        {newPrices[index]}
-      </span>
+      />
+      {
+        <Button
+          bsStyle={
+            (index === primaryIndex && primaryDown) ||
+            (index !== primaryIndex && oppositeDown)
+              ? "danger"
+              : "default"
+          }
+          bsSize="xs"
+          disabled={!selectedCard || index === primaryIndex || oppositeUp}
+          block
+          style={{
+            borderTopRightRadius: 0,
+            borderTopLeftRadius: 0
+          }}
+        >
+          <Glyphicon
+            glyph="arrow-down"
+            style={
+              !selectedCard ||
+              (index === primaryIndex && primaryUp) ||
+              (index !== primaryIndex && oppositeUp)
+                ? {
+                    color: "silver"
+                  }
+                : {}
+            }
+          />
+        </Button>
+      }
     </ShareCell>
   ));
+};
 
 export const getBankAmounts = turn =>
   turn.bankAmounts.map(
