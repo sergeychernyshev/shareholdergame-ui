@@ -22,10 +22,6 @@ class MultiplyBy2Card extends BigCard {
   getCardLabel = operationIds => (
     <MultiplyBy2CardLabel card={this} operationIds={operationIds} />
   );
-
-  static calculatePriceChange(price) {
-    return price * 2;
-  }
 }
 
 export default MultiplyBy2Card;

@@ -23,10 +23,6 @@ class DivideBy2Card extends BigCard {
   getCardLabel = operationIds => (
     <DivideBy2CardLabel card={this} operationIds={operationIds} />
   );
-
-  static calculatePriceChange(price) {
-    return price / 2;
-  }
 }
 
 export default DivideBy2Card;

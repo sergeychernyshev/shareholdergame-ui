@@ -92,6 +92,8 @@ export const getPriceChangeCells = ({
         disabled
         style={{
           textAlign: "center",
+          fontWeight:
+            newPrices[index] !== previousPrices[index] ? "bold" : "normal",
           borderTop: 0,
           borderBottom: 0,
           borderRadius: 0
