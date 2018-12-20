@@ -131,12 +131,13 @@ const CurrentTurnCompact = ({
     </ShareCell>
   ));
 
-  const priceCells = getPriceChangeCells(
+  const priceCells = getPriceChangeCells({
     previousPrices,
     newPrices,
     selectedCard,
-    onSelectOppositePriceChange
-  );
+    onSelectOppositePriceChange,
+    areAllPricesUpdated
+  });
 
   const lastStepCells = allColors.map((color, index) => (
     <ShareCell

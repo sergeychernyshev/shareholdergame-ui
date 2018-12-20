@@ -8,7 +8,10 @@ class allPricesUpdated {
 
     return {
       // hard code until we have UI for setting prices
-      updatedState: { ...state, areAllPricesUpdated: numberOfPriceChanges > 1 },
+      updatedState: {
+        ...state,
+        areAllPricesUpdated: numberOfPriceChanges === 2
+      },
       isLastRuleApplied: numberOfPriceChanges <= 1
     };
   };

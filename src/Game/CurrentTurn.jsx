@@ -131,12 +131,13 @@ const CurrentTurn = ({
   );
 
   tableCells = tableCells.concat(
-    getPriceChangeCells(
+    getPriceChangeCells({
       previousPrices,
       newPrices,
       selectedCard,
-      onSelectOppositePriceChange
-    )
+      onSelectOppositePriceChange,
+      areAllPricesUpdated
+    })
   );
 
   if (lastRow) {

@@ -11,12 +11,13 @@ import { allColors } from "../Cards/CardColor";
 
 import ShareCell from "./ShareCell";
 
-export const getPriceChangeCells = (
+export const getPriceChangeCells = ({
   previousPrices,
   newPrices,
   selectedCard,
-  onSelectOppositePriceChange
-) => {
+  onSelectOppositePriceChange,
+  areAllPricesUpdated
+}) => {
   const selectedColor = selectedCard ? selectedCard.card.color : null;
 
   let primaryIndex = null;
@@ -48,7 +49,12 @@ export const getPriceChangeCells = (
               : "default"
           }
           bsSize="xs"
-          disabled={!selectedCard || index === primaryIndex || oppositeDown}
+          disabled={
+            areAllPricesUpdated ||
+            !selectedCard ||
+            index === primaryIndex ||
+            oppositeDown
+          }
           block
           style={{
             borderBottomRightRadius: 0,
@@ -62,7 +68,7 @@ export const getPriceChangeCells = (
           }}
         >
           <Glyphicon
-            glyph="arrow-up"
+            glyph="triangle-top"
             style={
               !selectedCard ||
               (index === primaryIndex && primaryDown) ||
@@ -100,7 +106,12 @@ export const getPriceChangeCells = (
               : "default"
           }
           bsSize="xs"
-          disabled={!selectedCard || index === primaryIndex || oppositeUp}
+          disabled={
+            areAllPricesUpdated ||
+            !selectedCard ||
+            index === primaryIndex ||
+            oppositeUp
+          }
           block
           style={{
             borderTopRightRadius: 0,
@@ -114,7 +125,7 @@ export const getPriceChangeCells = (
           }}
         >
           <Glyphicon
-            glyph="arrow-down"
+            glyph="triangle-bottom"
             style={
               !selectedCard ||
               (index === primaryIndex && primaryUp) ||
