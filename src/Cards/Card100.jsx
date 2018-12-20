@@ -13,6 +13,9 @@ class Card100 extends BigCard {
 
     this.primaryPriceOperation = PriceOperation.getById(1); // 100
 
+    // @TODO change to actually work with 3 opposites!!!!!!!!!!!!!!!!!!!!!!
+    this.oppositePriceOperation = PriceOperation.getById(10); // -20
+
     this.priceChangeOperations = [];
     this.priceChangeOperations[this.color.index] = this.primaryPriceOperation;
   }

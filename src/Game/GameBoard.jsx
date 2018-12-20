@@ -25,6 +25,7 @@ const GameBoard = ({
   previousPrices,
   priceOperations,
   newPrices,
+  onSelectOppositePriceChange,
   areAllPricesUpdated,
   last,
   bank,
@@ -122,6 +123,7 @@ const GameBoard = ({
           previousPrices={previousPrices}
           priceOperations={priceOperations}
           newPrices={newPrices}
+          onSelectOppositePriceChange={onSelectOppositePriceChange}
           areAllPricesUpdated={areAllPricesUpdated}
           last={last}
           bank={bank}

@@ -14,7 +14,8 @@ import ShareCell from "./ShareCell";
 export const getPriceChangeCells = (
   previousPrices,
   newPrices,
-  selectedCard
+  selectedCard,
+  onSelectOppositePriceChange
 ) => {
   const selectedColor = selectedCard ? selectedCard.card.color : null;
 
@@ -52,6 +53,12 @@ export const getPriceChangeCells = (
           style={{
             borderBottomRightRadius: 0,
             borderBottomLeftRadius: 0
+          }}
+          onClick={() => {
+            onSelectOppositePriceChange(
+              index,
+              selectedCard.card.oppositePriceOperation
+            );
           }}
         >
           <Glyphicon
@@ -98,6 +105,12 @@ export const getPriceChangeCells = (
           style={{
             borderTopRightRadius: 0,
             borderTopLeftRadius: 0
+          }}
+          onClick={() => {
+            onSelectOppositePriceChange(
+              index,
+              selectedCard.card.oppositePriceOperation
+            );
           }}
         >
           <Glyphicon

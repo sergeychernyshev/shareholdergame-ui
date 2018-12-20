@@ -5,16 +5,26 @@ import SmallCardLabel from "./SmallCardLabel";
 import Card from "./Card";
 
 const positiveOperationIds = [];
-positiveOperationIds[60] = 2;
-positiveOperationIds[50] = 3;
-positiveOperationIds[40] = 4;
-positiveOperationIds[30] = 5;
+const positiveOperationOppositeIds = [];
+positiveOperationIds[60] = 2; // +60
+positiveOperationIds[50] = 3; // +50
+positiveOperationIds[40] = 4; // +40
+positiveOperationIds[30] = 5; // +30
+positiveOperationOppositeIds[60] = 9; // -30
+positiveOperationOppositeIds[50] = 8; // -40
+positiveOperationOppositeIds[40] = 7; // -50
+positiveOperationOppositeIds[30] = 6; // -60
 
 const negativeOperationIds = [];
-negativeOperationIds[60] = 6;
-negativeOperationIds[50] = 7;
-negativeOperationIds[40] = 8;
-negativeOperationIds[30] = 9;
+const negativeOperationOppositeIds = [];
+negativeOperationIds[60] = 6; // -60
+negativeOperationIds[50] = 7; // -50
+negativeOperationIds[40] = 8; // -40
+negativeOperationIds[30] = 9; // -30
+negativeOperationOppositeIds[60] = 5; // +30
+negativeOperationOppositeIds[50] = 4; // +40
+negativeOperationOppositeIds[40] = 3; // +50
+negativeOperationOppositeIds[30] = 2; // +60
 
 class SmallCard extends Card {
   constructor({ color, value }) {
@@ -34,6 +44,12 @@ class SmallCard extends Card {
         ? positiveOperationIds[this.value]
         : negativeOperationIds[-this.value];
     this.primaryPriceOperation = PriceOperation.getById(primaryOperationId);
+
+    const oppositeOperationId =
+      this.value > 0
+        ? positiveOperationOppositeIds[this.value]
+        : negativeOperationOppositeIds[-this.value];
+    this.oppositePriceOperation = PriceOperation.getById(oppositeOperationId);
 
     this.priceChangeOperations = [];
     this.priceChangeOperations[this.color.index] = this.primaryPriceOperation;

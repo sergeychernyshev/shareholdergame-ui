@@ -14,6 +14,7 @@ class MultiplyBy2Card extends BigCard {
     this.sortOrder = 24;
 
     this.primaryPriceOperation = PriceOperation.getById(12); // x2
+    this.oppositePriceOperation = PriceOperation.getById(13); // /2
 
     this.priceChangeOperations = [];
     this.priceChangeOperations[this.color.index] = this.primaryPriceOperation;

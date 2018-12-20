@@ -63,6 +63,17 @@ class CurrentTurnState extends React.Component {
     };
   }
 
+  onSelectOppositePriceChange = (index, oppositePriceChaneOperation) => {
+    const priceOperations = this.state.priceOperations.slice();
+    priceOperations[index] = oppositePriceChaneOperation;
+
+    const newState = applyRules(this.state, {
+      priceOperations
+    });
+
+    this.updateState(newState);
+  };
+
   onUpdateCard = selectedCard => {
     const newState = applyRules(this.state, {
       selectedCard
@@ -119,6 +130,9 @@ class CurrentTurnState extends React.Component {
       previousPrices,
       priceOperations,
       newPrices,
+      onSelectOppositePriceChange: (index, priceOperation) => {
+        this.onSelectOppositePriceChange(index, priceOperation);
+      },
       areAllPricesUpdated,
       last,
       bank,

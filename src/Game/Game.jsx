@@ -80,6 +80,7 @@ const Game = ({ game, self }) => {
           previousPrices,
           priceOperations,
           newPrices,
+          onSelectOppositePriceChange,
           areAllPricesUpdated,
           last,
           bank,
@@ -98,6 +99,7 @@ const Game = ({ game, self }) => {
                       previousPrices={previousPrices}
                       priceOperations={priceOperations}
                       newPrices={newPrices}
+                      onSelectOppositePriceChange={onSelectOppositePriceChange}
                       areAllPricesUpdated={areAllPricesUpdated}
                       last={last}
                       bank={bank}
@@ -116,6 +118,7 @@ const Game = ({ game, self }) => {
                       previousPrices={previousPrices}
                       priceOperations={priceOperations}
                       newPrices={newPrices}
+                      onSelectOppositePriceChange={onSelectOppositePriceChange}
                       areAllPricesUpdated={areAllPricesUpdated}
                       last={last}
                       bank={bank}

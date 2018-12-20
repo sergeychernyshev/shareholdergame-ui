@@ -17,6 +17,7 @@ const GameBoardCompact = ({
   previousPrices,
   priceOperations,
   newPrices,
+  onSelectOppositePriceChange,
   areAllPricesUpdated,
   last,
   bank,
@@ -56,6 +57,7 @@ const GameBoardCompact = ({
           previousPrices={previousPrices}
           priceOperations={priceOperations}
           newPrices={newPrices}
+          onSelectOppositePriceChange={onSelectOppositePriceChange}
           areAllPricesUpdated={areAllPricesUpdated}
           last={last}
           bank={bank}

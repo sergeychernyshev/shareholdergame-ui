@@ -20,6 +20,7 @@ const CurrentTurnCompact = ({
   selectedCard,
   previousPrices,
   newPrices,
+  onSelectOppositePriceChange,
   areAllPricesUpdated,
   last,
   bank,
@@ -133,7 +134,8 @@ const CurrentTurnCompact = ({
   const priceCells = getPriceChangeCells(
     previousPrices,
     newPrices,
-    selectedCard
+    selectedCard,
+    onSelectOppositePriceChange
   );
 
   const lastStepCells = allColors.map((color, index) => (

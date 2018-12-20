@@ -19,6 +19,7 @@ const CurrentTurn = ({
   selectedCard,
   previousPrices,
   newPrices,
+  onSelectOppositePriceChange,
   areAllPricesUpdated,
   last,
   bank,
@@ -130,7 +131,12 @@ const CurrentTurn = ({
   );
 
   tableCells = tableCells.concat(
-    getPriceChangeCells(previousPrices, newPrices, selectedCard)
+    getPriceChangeCells(
+      previousPrices,
+      newPrices,
+      selectedCard,
+      onSelectOppositePriceChange
+    )
   );
 
   if (lastRow) {

@@ -14,6 +14,7 @@ class DivideBy2Card extends BigCard {
     this.sortOrder = 24;
 
     this.primaryPriceOperation = PriceOperation.getById(13); // /2
+    this.oppositePriceOperation = PriceOperation.getById(12); // x2
 
     this.priceChangeOperations = [];
     this.priceChangeOperations[this.color.index] = this.primaryPriceOperation;

@@ -2,12 +2,22 @@ class applyPriceChanges {
   static apply = state => {
     let updatedState = state;
 
-    let priceOperations = [];
+    const priceOperations = [];
 
     let newPrices = state.previousPrices;
 
     if (state.selectedCard) {
-      priceOperations = state.selectedCard.card.priceChangeOperations;
+      // apply existing price changes
+      state.priceOperations.forEach((priceOperation, index) => {
+        priceOperations[index] = priceOperation;
+      });
+
+      // apply price change from the card
+      state.selectedCard.card.priceChangeOperations.forEach(
+        (priceOperation, index) => {
+          priceOperations[index] = priceOperation;
+        }
+      );
 
       newPrices = state.previousPrices.map((oldPrice, index) => {
         const priceChangeOperation = priceOperations[index];

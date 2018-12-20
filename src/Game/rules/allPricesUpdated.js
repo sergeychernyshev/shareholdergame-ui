@@ -1,9 +1,17 @@
 class allPricesUpdated {
-  static apply = state => ({
-    // hard code until we have UI for setting prices
-    updatedState: { ...state, areAllPricesUpdated: false },
-    isLastRuleApplied: true
-  });
+  static apply = state => {
+    let numberOfPriceChanges = 0;
+
+    state.priceOperations.forEach(() => {
+      numberOfPriceChanges += 1;
+    });
+
+    return {
+      // hard code until we have UI for setting prices
+      updatedState: { ...state, areAllPricesUpdated: numberOfPriceChanges > 1 },
+      isLastRuleApplied: numberOfPriceChanges <= 1
+    };
+  };
 }
 
 export default allPricesUpdated;
