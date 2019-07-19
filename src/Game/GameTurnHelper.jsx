@@ -38,110 +38,130 @@ export const getPriceChangeCells = ({
     }
   });
 
-  return allColors.map((color, index) => (
-    <ShareCell key={`price_${color.letter.id}`} color={color} current>
-      {
-        <Button
-          bsStyle={
-            (index === primaryIndex && primaryUp) ||
-            (index !== primaryIndex && oppositeUp)
-              ? "success"
-              : "default"
-          }
-          bsSize="xs"
-          disabled={
-            areAllPricesUpdated ||
-            !selectedCard ||
-            index === primaryIndex ||
-            oppositeDown
-          }
-          block
-          style={{
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 0
-          }}
-          onClick={() => {
-            onSelectOppositePriceChange(
-              index,
-              selectedCard.card.oppositePriceOperation
-            );
-          }}
-        >
-          <Glyphicon
-            glyph="triangle-top"
-            style={
-              !selectedCard ||
-              (index === primaryIndex && primaryDown) ||
-              (index !== primaryIndex && oppositeDown)
-                ? {
-                    color: "silver"
-                  }
-                : {}
-            }
-          />
-        </Button>
+  return allColors.map((color, index) => {
+    const upColorSelected =
+      (index === primaryIndex && primaryUp) ||
+      (index !== primaryIndex && oppositeUp);
+    const downColorSelected =
+      (index === primaryIndex && primaryDown) ||
+      (index !== primaryIndex && oppositeDown);
+
+    let newPriceDisplay = "";
+    let newPriceUnder = false;
+    let newPriceOver = false;
+
+    if (newPrices[index] !== previousPrices[index]) {
+      newPriceDisplay = newPrices[index];
+
+      if (newPriceDisplay > 250) {
+        newPriceDisplay = 250;
+        newPriceOver = true;
       }
-      <FormControl
-        type="text"
-        value={
-          newPrices[index] !== previousPrices[index] ? newPrices[index] : ""
-        }
-        placeholder={
-          newPrices[index] === previousPrices[index] ? newPrices[index] : ""
-        }
-        disabled
-        style={{
-          textAlign: "center",
-          fontWeight:
-            newPrices[index] !== previousPrices[index] ? "bold" : "normal",
-          borderTop: 0,
-          borderBottom: 0,
-          borderRadius: 0
-        }}
-      />
-      {
-        <Button
-          bsStyle={
-            (index === primaryIndex && primaryDown) ||
-            (index !== primaryIndex && oppositeDown)
-              ? "danger"
-              : "default"
-          }
-          bsSize="xs"
-          disabled={
-            areAllPricesUpdated ||
-            !selectedCard ||
-            index === primaryIndex ||
-            oppositeUp
-          }
-          block
-          style={{
-            borderTopRightRadius: 0,
-            borderTopLeftRadius: 0
-          }}
-          onClick={() => {
-            onSelectOppositePriceChange(
-              index,
-              selectedCard.card.oppositePriceOperation
-            );
-          }}
-        >
-          <Glyphicon
-            glyph="triangle-bottom"
-            style={
-              !selectedCard ||
-              (index === primaryIndex && primaryUp) ||
-              (index !== primaryIndex && oppositeUp)
-                ? {
-                    color: "silver"
-                  }
-                : {}
-            }
-          />
-        </Button>
+
+      if (newPriceDisplay < 10) {
+        newPriceDisplay = 10;
+        newPriceUnder = true;
       }
-    </ShareCell>
-  ));
+    }
+
+    let textDecoration = "none";
+    if (newPriceUnder) {
+      textDecoration = "underline";
+    }
+    if (newPriceOver) {
+      textDecoration = "overline";
+    }
+
+    return (
+      <ShareCell key={`price_${color.letter.id}`} color={color} current>
+        {
+          <Button
+            bsStyle={upColorSelected ? "success" : "default"}
+            bsSize="xs"
+            disabled={
+              areAllPricesUpdated ||
+              !selectedCard ||
+              index === primaryIndex ||
+              oppositeDown
+            }
+            block
+            style={{
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 0
+            }}
+            onClick={() => {
+              onSelectOppositePriceChange(
+                index,
+                selectedCard.card.oppositePriceOperation
+              );
+            }}
+          >
+            <Glyphicon
+              glyph="triangle-top"
+              style={
+                !selectedCard || downColorSelected
+                  ? {
+                      color: "silver"
+                    }
+                  : {}
+              }
+            />
+          </Button>
+        }
+        <FormControl
+          type="text"
+          value={newPriceDisplay}
+          placeholder={
+            newPrices[index] === previousPrices[index] ? newPrices[index] : ""
+          }
+          disabled
+          style={{
+            textAlign: "center",
+            fontWeight:
+              newPrices[index] !== previousPrices[index] ? "bold" : "normal",
+            borderTop: 0,
+            borderBottom: 0,
+            borderRadius: 0,
+            textDecoration
+          }}
+        />
+        {
+          <Button
+            bsStyle={downColorSelected ? "danger" : "default"}
+            bsSize="xs"
+            disabled={
+              areAllPricesUpdated ||
+              !selectedCard ||
+              index === primaryIndex ||
+              oppositeUp
+            }
+            block
+            style={{
+              borderTopRightRadius: 0,
+              borderTopLeftRadius: 0
+            }}
+            onClick={() => {
+              onSelectOppositePriceChange(
+                index,
+                selectedCard.card.oppositePriceOperation
+              );
+            }}
+          >
+            <Glyphicon
+              glyph="triangle-bottom"
+              style={
+                !selectedCard || upColorSelected
+                  ? {
+                      color: "silver"
+                    }
+                  : {}
+              }
+            />
+          </Button>
+        }
+      </ShareCell>
+    );
+  });
 };
 
 export const getBankAmounts = turn =>
