@@ -39,12 +39,11 @@ export const getPriceChangeCells = ({
   });
 
   return allColors.map((color, index) => {
-    const upColorSelected =
-      (index === primaryIndex && primaryUp) ||
-      (index !== primaryIndex && oppositeUp);
-    const downColorSelected =
-      (index === primaryIndex && primaryDown) ||
-      (index !== primaryIndex && oppositeDown);
+    const upColorSelected = index === primaryIndex && primaryUp; // this is a primary color
+    let upColorHighlighted = index !== primaryIndex && oppositeUp; // highlight during selection or for opposite color
+
+    const downColorSelected = index === primaryIndex && primaryDown; // this is a primary color
+    let downColorHighlighted = index !== primaryIndex && oppositeDown; // highlight during selection or for opposite color
 
     let newPriceDisplay = "";
     let newPriceUnder = false;
@@ -62,6 +61,9 @@ export const getPriceChangeCells = ({
         newPriceDisplay = 10;
         newPriceUnder = true;
       }
+    } else if (areAllPricesUpdated) {
+      upColorHighlighted = false;
+      downColorHighlighted = false;
     }
 
     let textDecoration = "none";
@@ -76,7 +78,9 @@ export const getPriceChangeCells = ({
       <ShareCell key={`price_${color.letter.id}`} color={color} current>
         {
           <Button
-            bsStyle={upColorSelected ? "success" : "default"}
+            bsStyle={
+              upColorSelected || upColorHighlighted ? "success" : "default"
+            }
             bsSize="xs"
             disabled={
               areAllPricesUpdated ||
@@ -99,7 +103,7 @@ export const getPriceChangeCells = ({
             <Glyphicon
               glyph="triangle-top"
               style={
-                !selectedCard || downColorSelected
+                !selectedCard || (!upColorSelected && !upColorHighlighted)
                   ? {
                       color: "silver"
                     }
@@ -127,7 +131,9 @@ export const getPriceChangeCells = ({
         />
         {
           <Button
-            bsStyle={downColorSelected ? "danger" : "default"}
+            bsStyle={
+              downColorSelected || downColorHighlighted ? "danger" : "default"
+            }
             bsSize="xs"
             disabled={
               areAllPricesUpdated ||
@@ -150,7 +156,7 @@ export const getPriceChangeCells = ({
             <Glyphicon
               glyph="triangle-bottom"
               style={
-                !selectedCard || upColorSelected
+                !selectedCard || (!downColorSelected && !downColorHighlighted)
                   ? {
                       color: "silver"
                     }
