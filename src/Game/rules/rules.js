@@ -2,12 +2,14 @@ import positiveBalanceAfterFirstBuySell from "./positiveBalanceAfterFirstBuySell
 import isCardSelected from "./isCardSelected";
 import applyPriceChanges from "./applyPriceChanges";
 import allPricesUpdated from "./allPricesUpdated";
+import positiveBalanceAfterLastBuySell from "./positiveBalanceAfterLastBuySell";
 
 const rules = [
   positiveBalanceAfterFirstBuySell,
   isCardSelected,
   applyPriceChanges,
-  allPricesUpdated
+  allPricesUpdated,
+  positiveBalanceAfterLastBuySell
 ];
 
 // call this method and pass it the state and updates to make
